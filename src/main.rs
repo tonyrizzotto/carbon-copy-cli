@@ -1,29 +1,22 @@
+use clap::Parser;
+use commands::cli::{Commands, CarbonCopyArgs};
+
+mod commands;
 // use std::path::PathBuf;
-// use colored::*;
-use clap::{Parser, Subcommand};
+use colored::*;
+fn main() {
+   let cli:CarbonCopyArgs = commands::cli::CarbonCopyArgs::parse();
 
-/// Copy and implement templates like a boss
-#[derive(Parser, Debug)]
-#[command(author, version, about, long_about = None)]
-struct CarbonCopyArgs {
-   #[command(subcommand)]
-    command: Option<Commands>,
-}
-
-#[derive(Debug, Subcommand)]
-enum Commands {
-   /// Copy a template
-   Copy {
-      /// Directory of the file you want to 
-      #[arg(short, long)]
-      folder: Option<String>,
+   match &cli.command {
+      Some(Commands::Copy { folder }) => {
+          println!("You are in the folder path: {:?}", folder);
+      }
+      None => {
+         // Default message for no args
+         println!("Howdy 👋, I'm smart, but not {} smart. Try running {} for more options!",
+            "that".blue(),
+            "`carbon help`".bright_green())
+      }
    }
 }
-
-
-fn main() {
-   // let args = CarbonCopyArgs::parse();
-
-   // Default message for no args
-   println!("Howdy 👋, I'm smart, but not that smart. Give me something to do, friend!")
-}
+   
