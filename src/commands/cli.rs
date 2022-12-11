@@ -10,10 +10,14 @@ pub struct CarbonCopyArgs {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
-   /// Copy a template
-   Copy {
-      /// Directory of the file you want to 
+   /// Copy a template by providing input > output locations
+   /// 
+   /// carbon copy ./folder/file.js ~./development/templates <=== basic usage
+   /// 
+   /// carbon copy -i <=== open interactive mode
+   Copy{
+      /// Toggles interactive mode
       #[arg(short, long)]
-      folder: Option<String>,
+      interactive: bool,
    }
 }
